@@ -25,7 +25,7 @@ def main():
         pygame.Surface.fill(screen, (0,0,0))
         player.draw(screen)
         pygame.display.flip()
-
+        player.update(dt)
         dt = fps.tick(60) / 1000
 
 
