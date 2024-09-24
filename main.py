@@ -10,22 +10,33 @@ print(f"Screen height: {SCREEN_HEIGHT}")
 
 def main():
     pygame.init()
-
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
     fps = pygame.time.Clock()
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
     dt = 0
+
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen, (0,0,0))
-        player.draw(screen)
+
+        for object in updatable:
+            object.update(dt)
+        for object in drawable:
+            print(object)
+            object.draw(screen)
+
         pygame.display.flip()
-        player.update(dt)
+
         dt = fps.tick(60) / 1000
 
 
